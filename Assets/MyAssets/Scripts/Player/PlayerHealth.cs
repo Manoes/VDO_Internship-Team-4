@@ -13,5 +13,24 @@ public class PlayerHealth : MonoBehaviour
     public int CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
 
-    
+    private void Awake()
+    {
+        currentHealth = maxHealth;
+    }
+
+    void Start()
+    {
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+
+        if(currentHealth <= 0)
+            OnDeath?.Invoke();
+    }
 }

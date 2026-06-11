@@ -119,6 +119,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &21923566
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 21923567}
+  - component: {fileID: 21923568}
+  m_Layer: 0
+  m_Name: ScreenWrapManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &21923567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21923566}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1682998440}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &21923568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21923566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 276725c655f5ad444870e3acdc163725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScreenWrapManager
+  targetCamera: {fileID: 519420031}
+  padding: 0.5
 --- !u!1 &154800404
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,6 +303,11 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &347304779 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6034315286017172829, guid: 318db54dd7ade3e46985b747d4c8c13d, type: 3}
+  m_PrefabInstance: {fileID: 2876991028259947500}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &434120248
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,6 +876,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 960140361}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1576981674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1576981675}
+  - component: {fileID: 1576981676}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1576981675
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576981674}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1682998440}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1576981676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576981674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6011a64900f1e94abc174567df03baa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
+  OnScoreChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1658918931
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,6 +967,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6be865f9a839b74295ade69667014b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ModeManager
+  selectedMode: 1
+  player1Prefab: {fileID: 347304779}
+  player2Prefab: {fileID: 6363296261947899547, guid: f06c829496ed50345a062999aafa1e86, type: 3}
+  player2SpawnPoint: {fileID: 6432969963430186517, guid: f06c829496ed50345a062999aafa1e86, type: 3}
 --- !u!1 &1682998439
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,11 +996,14 @@ Transform:
   m_GameObject: {fileID: 1682998439}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.85856, y: -0.98203, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1658918932}
+  - {fileID: 1722416993}
+  - {fileID: 21923567}
+  - {fileID: 1576981675}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1692205461
@@ -1177,6 +1282,57 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1722416992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1722416993}
+  - component: {fileID: 1722416994}
+  m_Layer: 0
+  m_Name: FallingObjectSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1722416993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722416992}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1682998440}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1722416994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722416992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76fed14a84426c54b928b1931f04d73c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FallingObjectSpawner
+  bananaPrefab: {fileID: 7579847665358011739, guid: fd3188652dd8cdf42a854b22ea292481, type: 3}
+  coconutPrefab: {fileID: 8319761980158711332, guid: faa6a6e95a1d9564d9577d0bfd2081e9, type: 3}
+  minX: -16
+  maxX: 16
+  spawnY: 11
+  spawnInterval: 0.75
+  coconutChance: 0.2
 --- !u!1 &1744025947
 GameObject:
   m_ObjectHideFlags: 0

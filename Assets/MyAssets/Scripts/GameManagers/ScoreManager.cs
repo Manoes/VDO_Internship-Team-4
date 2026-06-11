@@ -17,6 +17,8 @@ public class ScoreManager : Singleton<ScoreManager>
         {
             player1Score += amount;
             player1Score = Mathf.Max(0, player1Score);
+
+            print($"[ScoreManager] Player 1 now has Score: {player1Score}");
             OnScoreChanged?.Invoke(1, player1Score);
         }
 
@@ -24,6 +26,8 @@ public class ScoreManager : Singleton<ScoreManager>
         {
             player2Score += amount;
             player2Score = Mathf.Max(0, player2Score);
+
+            print($"[ScoreManager] Player 2 now has Score: {player2Score}");
             OnScoreChanged?.Invoke(2, player2Score);
         }
     }
