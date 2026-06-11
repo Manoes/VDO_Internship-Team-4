@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class MonkeyPlayerController : MonoBehaviour
 {
+    [SerializeField] private int playerIndex = 1;
+
     [Header("Movement Parameters")]
     [SerializeField] private float maxSpeed = 8f;
     [SerializeField] private float groundAcceleration = 70f;
@@ -57,6 +59,7 @@ public class MonkeyPlayerController : MonoBehaviour
 
     float ignoreGroundedTimer;
 
+    public int PlayerIndex => playerIndex;
     public bool IsGrounded => isGrounded;
     public bool IsOnWall => !isGrounded && wallDirection != 0;
     public int LastJumpFrame { get; private set; } = -9999;
@@ -69,6 +72,8 @@ public class MonkeyPlayerController : MonoBehaviour
 
     void Update()
     {
+        HandleScreenWrap();
+
         inputX = moveInput.x;
 
         jumpBufferTimer -= Time.deltaTime;
@@ -131,6 +136,14 @@ public class MonkeyPlayerController : MonoBehaviour
 
         if (wallJumpLockTimer > 0f)
             wallJumpLockTimer -= Time.fixedDeltaTime;
+    }
+
+    private void HandleScreenWrap()
+    {
+        if(ScreenWrapManager.Instance == null) return;
+
+        transform.position =
+            ScreenWrapManager.Instance.WrapPosition(transform.position);
     }
 
     void MoveHorizontally(float inputX)
