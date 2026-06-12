@@ -857,7 +857,7 @@ GameObject:
   m_Layer: 0
   m_Name: Player2Spawnpoint
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -870,7 +870,7 @@ Transform:
   m_GameObject: {fileID: 1218059342}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: -6.8, z: 0}
+  m_LocalPosition: {x: 4, y: -6.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -970,7 +970,7 @@ MonoBehaviour:
   selectedMode: 1
   player1Prefab: {fileID: 347304779}
   player2Prefab: {fileID: 6363296261947899547, guid: f06c829496ed50345a062999aafa1e86, type: 3}
-  player2SpawnPoint: {fileID: 6432969963430186517, guid: f06c829496ed50345a062999aafa1e86, type: 3}
+  player2SpawnPoint: {fileID: 1218059343}
 --- !u!1 &1682998439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,8 +1331,13 @@ MonoBehaviour:
   minX: -16
   maxX: 16
   spawnY: 11
-  spawnInterval: 0.75
-  coconutChance: 0.2
+  minSpawnDistance: 1.2
+  maxSpawnAttempts: 10
+  recentSpawnMemory: 5
+  spawnInterval: 1.2
+  startingCoconutChance: 0.2
+  maxCoconutChance: 0.6
+  coconutIncreasePerSecond: 0.005
 --- !u!1 &1744025947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,7 +1762,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4854995975786067582, guid: 318db54dd7ade3e46985b747d4c8c13d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 4854995975786067582, guid: 318db54dd7ade3e46985b747d4c8c13d, type: 3}
       propertyPath: m_LocalPosition.y
