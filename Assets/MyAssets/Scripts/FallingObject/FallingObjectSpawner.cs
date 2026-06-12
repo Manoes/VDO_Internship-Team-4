@@ -5,6 +5,7 @@ public class FallingObjectSpawner : MonoBehaviour
 {
     [Header("Prefabs")]
     [SerializeField] private GameObject bananaPrefab;
+    [SerializeField] private GameObject goldenBananaPrefab;
     [SerializeField] private GameObject coconutPrefab;
 
     [Header("Spawn Area")]
@@ -20,10 +21,13 @@ public class FallingObjectSpawner : MonoBehaviour
     [Header("Timing")]
     [SerializeField] private float spawnInterval = 0.75f;
 
-    [Header("Chance")]
+    [Header("Coconut")]
     [SerializeField, Range(0f, 1f)] private float startingCoconutChance = 0.2f;
     [SerializeField, Range(0f, 1f)] private float maxCoconutChance = 0.6f;
     [SerializeField] private float coconutIncreasePerSecond = 0.005f;
+
+    [Header("Golden Banana")]
+    [SerializeField, Range(0f, 1f)] private float goldenBananaChance = 0.08f; 
 
     private readonly List<float> recentSpawnXs = new();
 
@@ -45,20 +49,29 @@ public class FallingObjectSpawner : MonoBehaviour
 
     private void SpawnObject()
     {
-        float currentCoconutChance = Mathf.Min(
-            startingCoconutChance + gamTimer * coconutIncreasePerSecond,
-            maxCoconutChance
-        );
-
-        GameObject prefab = Random.value < currentCoconutChance
-           ? coconutPrefab
-           : bananaPrefab;
+        GameObject prefab = GetRandomPrefab();
 
         if (prefab == null) return;
 
         Vector3 spawnPosition = GetSpawnPosition();
 
         Instantiate(prefab, spawnPosition, Quaternion.identity);
+    }
+
+    private GameObject GetRandomPrefab()
+    {
+         float currentCoconutChance = Mathf.Min(
+            startingCoconutChance + gamTimer * coconutIncreasePerSecond,
+            maxCoconutChance
+        );
+
+        if(Random.value < currentCoconutChance)
+            return coconutPrefab;
+        
+        if(goldenBananaPrefab != null && Random.value < goldenBananaChance)
+            return goldenBananaPrefab;
+        
+        return bananaPrefab;
     }
 
     private Vector3 GetSpawnPosition()
