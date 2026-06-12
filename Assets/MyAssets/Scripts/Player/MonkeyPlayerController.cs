@@ -13,6 +13,10 @@ public class MonkeyPlayerController : MonoBehaviour
     [SerializeField] private float airAcceleration = 45f;
     [SerializeField] private float airDeceleration = 35f;
 
+    [Header("Safety Clamp")]
+    [SerializeField] private float maxHorizontalVelocity = 12f;
+    [SerializeField] private float maxVerticalVelocity = 25f;
+
     [Header("Jump")]
     [SerializeField] private float jumpVelocity = 14f;
     [SerializeField] private float coyoteTime = 0.10f;
@@ -71,9 +75,7 @@ public class MonkeyPlayerController : MonoBehaviour
     }
 
     void Update()
-    {
-        HandleScreenWrap();
-
+    {      
         inputX = moveInput.x;
 
         jumpBufferTimer -= Time.deltaTime;
@@ -134,16 +136,30 @@ public class MonkeyPlayerController : MonoBehaviour
 
         ApplyGravityFeel();
 
+        HandleScreenWrap();
+
         if (wallJumpLockTimer > 0f)
             wallJumpLockTimer -= Time.fixedDeltaTime;
+        
+        ClampVelocity();
     }
 
     private void HandleScreenWrap()
     {
         if(ScreenWrapManager.Instance == null) return;
 
-        transform.position =
-            ScreenWrapManager.Instance.WrapPosition(transform.position);
+        Vector3 wrappedPosition = 
+            ScreenWrapManager.Instance.WrapPosition(rb.position);
+
+        rb.position = wrappedPosition;
+    }
+
+    private void ClampVelocity()
+    {
+        rb.linearVelocity = new Vector2(
+            Mathf.Clamp(rb.linearVelocity.x, -maxHorizontalVelocity, maxHorizontalVelocity),
+            Mathf.Clamp(rb.linearVelocity.y, -maxVerticalVelocity, maxVerticalVelocity)
+        );
     }
 
     void MoveHorizontally(float inputX)
@@ -152,18 +168,18 @@ public class MonkeyPlayerController : MonoBehaviour
             inputX = 0f;
 
         float targetSpeed = inputX * maxSpeed;
-        float speedDiff = targetSpeed - rb.linearVelocity.x;
 
-        bool accelerating = Mathf.Abs(targetSpeed) > 0.01f;
-        float accelRate = isGrounded
-            ? (accelerating ? groundAcceleration : groundDeceleration)
-            : (accelerating ? airAcceleration : airDeceleration);
+        float accelRate = Mathf.Abs(inputX) > 0.01f
+            ? (isGrounded ? groundAcceleration : airAcceleration)
+            : (isGrounded ? groundDeceleration : airDeceleration);
 
-        float movement = accelRate * speedDiff;
-        rb.AddForce(new Vector2(movement, 0f), ForceMode2D.Force);
+        float newX = Mathf.MoveTowards(
+            rb.linearVelocity.x,
+            targetSpeed,
+            accelRate * Time.deltaTime
+        );
 
-        float clampedX = Mathf.Clamp(rb.linearVelocity.x, -maxSpeed, maxSpeed);
-        rb.linearVelocity = new Vector2(clampedX, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(newX, rb.linearVelocity.y);
     }
 
     void DoJump(float velY)
