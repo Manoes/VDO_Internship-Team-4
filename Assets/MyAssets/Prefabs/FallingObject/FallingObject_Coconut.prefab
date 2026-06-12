@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30dec0defe1705646a4cc9ae29d2bdf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallingObject
-  type: 1
+  type: 2
   scoreAmount: 10
   damageAmount: 1
   fallSpeed: 4

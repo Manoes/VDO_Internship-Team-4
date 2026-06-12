@@ -209,12 +209,14 @@ MonoBehaviour:
   groundDeceleration: 90
   airAcceleration: 45
   airDeceleration: 35
-  jumpVelocity: 15
+  maxHorizontalVelocity: 12
+  maxVerticalVelocity: 25
+  jumpVelocity: 18
   coyoteTime: 0.12
   jumpBufferTime: 0.12
   fallGravityMultiplier: 2
   maxFallSpeed: 22
-  enableWallJump: 1
+  enableWallJump: 0
   wallSlideMaxFallSpeed: 4.5
   wallJumpXVelocity: 9
   wallJumpYVelocity: 14
