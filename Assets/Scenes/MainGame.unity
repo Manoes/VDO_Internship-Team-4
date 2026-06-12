@@ -1017,7 +1017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6011a64900f1e94abc174567df03baa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
-  floatingScorePrefab: {fileID: 0}
+  floatingScorePrefab: {fileID: 1814550801358993862, guid: 6500c11b3ca5d2044b828ebab43ba6ff, type: 3}
   comboResetTime: 2
   maxCombo: 5
   OnScoreChanged:

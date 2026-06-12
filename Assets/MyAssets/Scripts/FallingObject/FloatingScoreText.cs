@@ -7,22 +7,32 @@ public class FloatingScoreText : MonoBehaviour
     [SerializeField] private float moveSpeed = 1.5f;
     [SerializeField] private float lifetime = 0.6f;
 
+    [Header("Colors")]
+    [SerializeField] private Color positiveColor = new Color(1f, 0.85f, 0f); // Banana Yellow
+    [SerializeField] private Color negativeColor = Color.red;
+
     private float timer;
-    private Color startColor;
+    private Color currentColor;
 
     void Awake()
     {
         if(text == null)
             text = GetComponent<TextMeshProUGUI>();
-        
-        startColor = text.color;
     }
 
     public void Initialize(int amount)
     {
         timer = lifetime;
-        text.text = amount > 0 ? $"+{amount}" : amount.ToString();
-        text.color = startColor;
+
+        text.text = amount > 0 
+            ? $"+{amount}" 
+            : amount.ToString();
+
+        currentColor = amount > 0
+            ? positiveColor
+            : negativeColor;
+
+        text.color = currentColor;
     }
 
     void Update()
@@ -32,7 +42,7 @@ public class FloatingScoreText : MonoBehaviour
         timer -= Time.deltaTime;
 
         float alpa = Mathf.Clamp01(timer / lifetime);
-        text.color = new Color(startColor.r, startColor.g, startColor.g, alpa);
+        text.color = new Color(currentColor.r, currentColor.g, currentColor.b, alpa);
 
         if(timer <= 0f)
             Destroy(gameObject);
