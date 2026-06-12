@@ -37,7 +37,7 @@ public class ScoreUI : MonoBehaviour
         UpdateScore(2, ScoreManager.Instance != null ? ScoreManager.Instance.Player2Score : 0);
     }
 
-    private void UpdateScore(int playerIndex, int score)
+    public void UpdateScore(int playerIndex, int score)
     {
         if(playerIndex == 1 && player1ScoreText != null)
             player1ScoreText.text = $"P1: {score:000000}";
