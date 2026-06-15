@@ -48,6 +48,8 @@ MonoBehaviour:
   text: {fileID: 8437846284302816575}
   moveSpeed: 1.5
   lifetime: 0.6
+  positiveColor: {r: 1, g: 0.85, b: 0, a: 1}
+  negativeColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1924751663721620707
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,8 +219,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Score
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7b561bd89ebeb8444a8df660df566087, type: 2}
+  m_sharedMaterial: {fileID: -2003955444030823574, guid: 7b561bd89ebeb8444a8df660df566087, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

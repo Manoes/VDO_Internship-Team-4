@@ -42,6 +42,16 @@ public class MonkeyPlayerController : MonoBehaviour
     [Header("Anti Double-Jump")]
     [SerializeField] private float ignoreGroundedAfterJump = 0.08f;
 
+    [Header("Visuals")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
+    [Header("Visual Juice")]
+    [SerializeField] private Transform visualRoot;
+    [SerializeField] private float idleBreathSpeed = 4f;
+    [SerializeField] private float idleBreathAmount = 0.04f;
+    [SerializeField] private float squashReturnSpeed = 12f;
+
     Rigidbody2D rb;
     Collider2D col;
 
@@ -54,6 +64,7 @@ public class MonkeyPlayerController : MonoBehaviour
     bool isJumping;
 
     bool isGrounded;
+    private bool wasGrounded;
     bool rawGrounded;
     bool onWallLeft;
     bool onWallRight;
@@ -72,10 +83,13 @@ public class MonkeyPlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+
+        if (visualRoot == null && spriteRenderer != null)
+            visualRoot = spriteRenderer.transform;
     }
 
     void Update()
-    {      
+    {
         inputX = moveInput.x;
 
         jumpBufferTimer -= Time.deltaTime;
@@ -94,6 +108,8 @@ public class MonkeyPlayerController : MonoBehaviour
         {
             coyoteTimer -= Time.deltaTime;
         }
+
+        UpdateAnimations();
     }
 
     void FixedUpdate()
@@ -140,15 +156,15 @@ public class MonkeyPlayerController : MonoBehaviour
 
         if (wallJumpLockTimer > 0f)
             wallJumpLockTimer -= Time.fixedDeltaTime;
-        
+
         ClampVelocity();
     }
 
     private void HandleScreenWrap()
     {
-        if(ScreenWrapManager.Instance == null) return;
+        if (ScreenWrapManager.Instance == null) return;
 
-        Vector3 wrappedPosition = 
+        Vector3 wrappedPosition =
             ScreenWrapManager.Instance.WrapPosition(rb.position);
 
         rb.position = wrappedPosition;
@@ -229,6 +245,59 @@ public class MonkeyPlayerController : MonoBehaviour
             if (onWallLeft) wallDirection = -1;
             else if (onWallRight) wallDirection = +1;
         }
+    }
+
+    private void UpdateAnimations()
+    {
+        if (animator != null)
+        {
+            animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
+            animator.SetBool("IsGrounded", isGrounded);
+        }
+
+        if (spriteRenderer != null)
+        {
+            if (inputX > 0.01f)
+                spriteRenderer.flipX = false;
+            else if (inputX < -0.01f)
+                spriteRenderer.flipX = true;
+        }
+
+        UpdateVisualSquashAndBreath();
+    }
+
+    private void UpdateVisualSquashAndBreath()
+    {
+        if (visualRoot == null)
+            return;
+
+        bool isIdle = isGrounded && Mathf.Abs(inputX) < 0.01f;
+
+        Vector3 targetScale = Vector3.one;
+
+        if (isIdle)
+        {
+            float breath = Mathf.Sin(Time.time * idleBreathSpeed) * idleBreathAmount;
+
+            targetScale = new Vector3(
+                1f + breath,
+                1f - breath,
+                1f
+            );
+        }
+
+        if (!wasGrounded && isGrounded)
+        {
+            visualRoot.localScale = new Vector3(1.15f, 0.85f, 1f);
+        }
+
+        visualRoot.localScale = Vector3.Lerp(
+            visualRoot.localScale,
+            targetScale,
+            Time.deltaTime * squashReturnSpeed
+        );
+
+        wasGrounded = isGrounded;
     }
 
     #region Inputs
