@@ -16,8 +16,6 @@ public class MatchTimer : MonoBehaviour
     {
         if(ModeManager.Instance != null && ModeManager.Instance.IsTwoPlayer)
             StartTimer();
-        else
-            gameObject.SetActive(false);
     }
 
     void Update()
