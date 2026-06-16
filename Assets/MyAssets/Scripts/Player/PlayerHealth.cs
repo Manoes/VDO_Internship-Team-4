@@ -28,6 +28,8 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
+        CameraShake2D.Instance?.Shake();
+
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
 
         if(currentHealth <= 0)

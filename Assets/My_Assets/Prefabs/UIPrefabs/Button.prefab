@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4815631690907266168}
   - component: {fileID: 2342673919846522744}
   - component: {fileID: 5172450442694561576}
-  - component: {fileID: -6403563179529769157}
   - component: {fileID: -3088323089270901489}
   - component: {fileID: -4650079194678911643}
+  - component: {fileID: -7476692569773590628}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -123,36 +123,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2342673919846522744}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -6403563179529769157}
-        m_TargetAssemblyTypeName: AddCharacter, Assembly-CSharp
-        m_MethodName: SetCharacterToName
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &-6403563179529769157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4202909060599117976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ae86eb274e3f7a41b64d07081f0ccea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  asS: {fileID: 0}
-  addCharacterSounds:
-  - {fileID: 8300000, guid: 9d7ad5efe1833f541bc5b85cbfeb9f6c, type: 3}
-  - {fileID: 8300000, guid: 04c937a76563c7c4196b29072359ff0e, type: 3}
-  deleteCharacterSound: {fileID: 8300000, guid: 86efca27650fd1046a5c4fec9ed36db4, type: 3}
+      m_Calls: []
 --- !u!114 &-3088323089270901489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,6 +155,22 @@ MonoBehaviour:
   asS: {fileID: 0}
   selectSound:
   - {fileID: 8300000, guid: e4978e513f3d1924e9f30bca361d5c51, type: 3}
+--- !u!114 &-7476692569773590628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4202909060599117976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87364597f02dfde44a8386cfb7560afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonZoom
+  duration: 0.2
+  customSpin: 0
+  spinRange: 10
+  zoom: 1.25
 --- !u!1 &7018757448727764029
 GameObject:
   m_ObjectHideFlags: 0
