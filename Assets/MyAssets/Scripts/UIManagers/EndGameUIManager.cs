@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class EndGameUIManager : MonoBehaviour
+public class EndGameUIManager : Singleton<EndGameUIManager>
 {
     [Header("Panels")]
     [SerializeField] private GameObject gameplayUI;
@@ -46,8 +46,10 @@ public class EndGameUIManager : MonoBehaviour
     private Tween soloTitleTween;
     private Tween winnerTitleTween;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         if (soloDeathPanel != null)
             soloDeathPanel.SetActive(false);
 
@@ -99,6 +101,34 @@ public class EndGameUIManager : MonoBehaviour
         );
 
         MainMenu();
+    }
+
+    public void AddCharacter(string character)
+    {
+        if (nameInput == null) return;
+        if (string.IsNullOrEmpty(character)) return;
+
+        nameInput.text += character;
+    }
+
+    public void DeleteCharacter()
+    {
+        if (nameInput == null) return;
+        if (string.IsNullOrEmpty(nameInput.text)) return;
+
+        nameInput.text = nameInput.text[..^1];
+    }
+
+    public void AddSpace()
+    {
+        AddCharacter(" ");
+    }
+
+    public void ClearName()
+    {
+        if (nameInput == null) return;
+
+        nameInput.text = "";
     }
 
     public void ShowTwoPlayerEndScreen()
