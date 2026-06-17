@@ -74,29 +74,32 @@ public class FallingObject : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collision)
+{
+    if (!collision.TryGetComponent(out MonkeyPlayerController player))
+        return;
+
+    int playerIndex = player.PlayerIndex;
+
+    if (type == FallingObjectType.Banana || type == FallingObjectType.GoldenBanana)
     {
-        if (!collision.TryGetComponent(out MonkeyPlayerController player))
-            return;
-
-        int playerIndex = player.PlayerIndex;
-
-        if (type == FallingObjectType.Banana || type == FallingObjectType.GoldenBanana)
-        {
-            ScoreManager.Instance?.AddScore(playerIndex, scoreAmount, transform.position);
-        }
-        else if (type == FallingObjectType.Coconut)
-        {
-            if (ModeManager.Instance != null && ModeManager.Instance.IsSolo)
-            {
-                PlayerHealth health = collision.GetComponent<PlayerHealth>();
-                health?.TakeDamage(damageAmount);
-            }
-            else
-            {
-                ScoreManager.Instance?.AddScore(playerIndex, -scoreAmount, transform.position);
-            }
-        }
-
-        Destroy(gameObject);
+        AudioManager.Instance?.PlayBananaCollect();
+        ScoreManager.Instance?.AddScore(playerIndex, scoreAmount, transform.position);
     }
+    else if (type == FallingObjectType.Coconut)
+    {
+        AudioManager.Instance?.PlayCoconutHit();
+
+        if (ModeManager.Instance != null && ModeManager.Instance.IsSolo)
+        {
+            PlayerHealth health = collision.GetComponent<PlayerHealth>();
+            health?.TakeDamage(damageAmount);
+        }
+        else
+        {
+            ScoreManager.Instance?.AddScore(playerIndex, -scoreAmount, transform.position);
+        }
+    }
+
+    Destroy(gameObject);
+}
 }

@@ -200,6 +200,7 @@ public class MonkeyPlayerController : MonoBehaviour
 
     void DoJump(float velY)
     {
+        AudioManager.Instance?.PlayJump();
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, velY);
     }
 

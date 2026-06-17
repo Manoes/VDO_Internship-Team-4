@@ -59,6 +59,9 @@ public class EndGameUIManager : Singleton<EndGameUIManager>
 
     public void ShowSoloDeathScreen()
     {
+        AudioManager.Instance?.StopMusic();
+        AudioManager.Instance?.PlayGameOver();
+
         Time.timeScale = 0f;
 
         if (gameplayUI != null)
@@ -133,6 +136,9 @@ public class EndGameUIManager : Singleton<EndGameUIManager>
 
     public void ShowTwoPlayerEndScreen()
     {
+        AudioManager.Instance?.StopMusic();
+        AudioManager.Instance?.PlayGameOver();
+
         Time.timeScale = 0f;
 
         if (gameplayUI != null)
